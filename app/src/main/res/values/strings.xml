@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EL</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, enim at culpa fugiat magnam, dolorum saepe asperiores ipsum, assumenda aperiam hic eum accusantium excepturi odio. Maiores adipisci sit assumenda ipsa.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.corelabsplus.el">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="EventLocator"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAzeZROIsffGMMik45xqGc7yG72HaxOz2E" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="EventLocator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.AddEventActivity" />
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.MyEventActivity" />
+        <activity android:name=".activities.MyEventsActivity" />
+        <activity android:name=".activities.EventActivity" />
+        <activity android:name=".activities.CommentsActivity" />
+        <activity android:name=".activities.MapsActivity" />
+        <activity android:name=".activities.MyReservationsActivity"></activity>
+    </application>
+
+</manifest>

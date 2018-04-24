@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_account_circle"/>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/user_icon"
+        android:layout_marginTop="10dp"
+        android:text="Victor NH" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:background="@drawable/comment_bcg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_icon"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="@string/lorem"/>
+
+</RelativeLayout>

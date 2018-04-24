@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity"
+    android:background="@color/colorPrimary">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"/>
+
+    <RelativeLayout
+        android:id="@+id/heading"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="16dp">
+        <TextView
+            android:id="@+id/e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="event"
+            android:textSize="26sp"/>
+        <TextView
+            android:id="@+id/l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:layout_toRightOf="@id/e"
+            android:text="LOCATOR"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/heading"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/emailView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email address"
+            android:maxLines="1"
+            android:maxLength="25"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/login_forms_bcg"
+            android:paddingLeft="10dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/passwordView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailView"
+            android:hint="Your password"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            android:background="@drawable/login_forms_bcg"
+            android:paddingLeft="10dp"
+            android:layout_margin="10dp"/>
+
+        <!--<Button-->
+            <!--android:id="@+id/recover"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Forgot password?"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:background="@null"-->
+            <!--android:layout_below="@id/emailView"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:textColor="@color/grey"/>-->
+
+        <Button
+            android:id="@+id/login"
+            android:layout_below="@id/passwordView"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@drawable/button_bcg"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/register"
+            android:layout_below="@id/login"
+            android:text="Create Account"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@drawable/button_bcg"
+            android:layout_margin="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
