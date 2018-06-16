@@ -105,7 +105,6 @@ public class EventInfoFragment extends Fragment {
         updateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEvent.setEnabled(false);
                 updateEvent();
             }
         });
@@ -187,6 +186,7 @@ public class EventInfoFragment extends Fragment {
         }
 
         else {
+            updateEvent.setEnabled(false);
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 

@@ -94,17 +94,8 @@ public class AddEventActivity extends AppCompatActivity {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (eventTitleInput.getText().toString().trim() != null
-                        && eventDescInput.getText().toString().trim() != null
-                        && eventLocationInput.getText().toString().trim() != null
-                        && eventTimeInput.getText().toString().trim() != null
-                        ){
 
-                    addEventButton.setEnabled(false);
-                    addEventButton.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
                     createEvent();
-                }
             }
         });
     }
@@ -181,6 +172,10 @@ public class AddEventActivity extends AppCompatActivity {
         }
 
         else {
+
+            addEventButton.setEnabled(false);
+            addEventButton.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
             Date date = new Date();
