@@ -170,76 +170,92 @@ public class EventInfoFragment extends Fragment {
         latitude = eventLocationLat.getText().toString().trim();
         longitude = eventLocationLong.getText().toString().trim();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        if (title.length() == 0){
+            eventTitleInput.setError("Title is required");
+        }
 
-        Date date = new Date();
-        posted = dateFormat.format(date).toString();
+        else if (desc.length() == 0){
+            eventDescInput.setError("Description is required.");
+        }
+
+        else if (location.length() == 0){
+            eventLocationInput.setError("Location is required");
+        }
+
+        else if (time.length() == 0){
+            eventTimeInput.setError("Time is required");
+        }
+
+        else {
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+            Date date = new Date();
+            posted = dateFormat.format(date).toString();
 
 
+            // Get the data from an ImageView as bytes
+            eventImageView.setDrawingCacheEnabled(true);
+            eventImageView.buildDrawingCache();
+            Bitmap bitmap = eventImageView.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
 
-        // Get the data from an ImageView as bytes
-        eventImageView.setDrawingCacheEnabled(true);
-        eventImageView.buildDrawingCache();
-        Bitmap bitmap = eventImageView.getDrawingCache();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+            UploadTask uploadTask = storageReference.child(EVENT).putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    updateEvent.setEnabled(true);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    image[0] = downloadUrl.toString();
 
-        UploadTask uploadTask = storageReference.child(EVENT).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                updateEvent.setEnabled(true);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                image[0] = downloadUrl.toString();
+                    Map<String, String> event = new HashMap<>();
+                    event.put("title", title);
+                    event.put("description", desc);
+                    event.put("time", time);
+                    event.put("location", location);
+                    event.put("posted", posted);
+                    event.put("image", image[0]);
+                    event.put("user", mAuth.getCurrentUser().getUid());
+                    event.put("userName", mAuth.getCurrentUser().getDisplayName());
 
-                Map<String, String> event = new HashMap<>();
-                event.put("title", title);
-                event.put("description", desc);
-                event.put("time", time);
-                event.put("location", location);
-                event.put("posted", posted);
-                event.put("image", image[0]);
-                event.put("user", mAuth.getCurrentUser().getUid());
-                event.put("userName", mAuth.getCurrentUser().getDisplayName());
+                    final Map<String, String> coordinates = new HashMap<>();
+                    coordinates.put("latitude", latitude);
+                    coordinates.put("longitude", longitude);
 
-                final Map<String, String> coordinates = new HashMap<>();
-                coordinates.put("latitude", latitude);
-                coordinates.put("longitude", longitude);
-
-                databaseReference.child("events").child(EVENT).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            if (latitude.length() > 0 && longitude.length() > 0) {
-                                databaseReference.child("events").child(EVENT).child("coordinates").setValue(coordinates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent intent = new Intent(getActivity().getApplicationContext(), MyEventsActivity.class);
-                                            startActivity(intent);
-                                            getActivity().finish();
+                    databaseReference.child("events").child(EVENT).setValue(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                if (latitude.length() > 0 && longitude.length() > 0) {
+                                    databaseReference.child("events").child(EVENT).child("coordinates").setValue(coordinates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Intent intent = new Intent(getActivity().getApplicationContext(), MyEventsActivity.class);
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            }
                                         }
-                                    }
-                                });
-                            }
-
-                            else {
-                                Intent intent = new Intent(getActivity().getApplicationContext(), MyEventsActivity.class);
-                                startActivity(intent);
-                                getActivity().finish();
+                                    });
+                                } else {
+                                    Intent intent = new Intent(getActivity().getApplicationContext(), MyEventsActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
                             }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
 
     }
 
